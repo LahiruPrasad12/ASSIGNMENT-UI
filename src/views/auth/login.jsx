@@ -54,7 +54,7 @@ export default function SignIn() {
 
         } catch (e) {
             localStorage.clear();
-            setError(e.message)
+            setError('Your email or password is incorrect')
         }
         setBtnLoading(false);
     };

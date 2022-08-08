@@ -13,28 +13,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
-import Logo from '../../assets/logo/logo.svg'
+
 
 import {LoginForm} from "../../validations";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Surge Global
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const theme = createTheme();
 
-export default function SignIn() {
+export default function ChangePassword() {
 
     const [btnLoading, setBtnLoading] = useState(false);
     const [error, setError] = useState(undefined);
@@ -80,10 +67,9 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar variant="square">
-
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
-
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
@@ -91,22 +77,34 @@ export default function SignIn() {
                         <TextField
                             margin="normal"
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={formik.values.email}
+                            name="password"
+                            label="Current Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={formik.values.password}
                             onChange={formik.handleChange}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
                         />
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
                             name="password"
                             label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                        />
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            name="password"
+                            label="Confirm Password"
                             type="password"
                             id="password"
                             autoComplete="current-password"

@@ -13,10 +13,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
+import { Navigate } from "react-router-dom";
+
 
 import {LoginForm} from "../../validations";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
+import router from "../../Router";
 
 function Copyright(props) {
     return (
@@ -34,17 +37,26 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+
     const [btnLoading, setBtnLoading] = useState(false);
     const [error, setError] = useState(undefined);
 
 
     const login = async (data) => {
-        setBtnLoading(true);
-        let payload = {
-            email: data.email,
-            password: data.password,
-        };
-        let respond = (await auth.login(payload)).data;
+        try {
+            setBtnLoading(true);
+            let payload = {
+                email: data.email,
+                password: data.password,
+            };
+            let respond = (await auth.login(payload)).data;
+            localStorage.setItem("JWT", respond.token);
+
+        } catch (e) {
+            localStorage.clear();
+            setError(e.message)
+        }
+        setBtnLoading(false);
     };
 
     const formik = useFormik({
@@ -54,7 +66,7 @@ export default function SignIn() {
         },
         validationSchema: LoginForm,
         onSubmit: (values) => {
-            login(JSON.stringify(values, null, 2));
+            login(values);
         },
     });
 
@@ -136,10 +148,8 @@ export default function SignIn() {
 
 
             {
-                error?<ErrorToast message={'error'}/>:''
+                error ? <ErrorToast message={error}/> : ''
             }
-
-
 
 
         </ThemeProvider>

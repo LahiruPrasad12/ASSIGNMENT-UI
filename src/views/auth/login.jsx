@@ -18,6 +18,7 @@ import Logo from '../../assets/logo/logo.svg'
 import {LoginForm} from "../../validations";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
+import {dark} from "@mui/material/styles/createPalette";
 
 function Copyright(props) {
     return (
@@ -80,7 +81,7 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar variant="square">
+                    <Avatar variant="square" sx={{bgcolor:'dark'}}>
 
                     </Avatar>
 

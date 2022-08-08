@@ -12,8 +12,7 @@ import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
-import {CreateNote} from "../../../validations/student_forms";
-import {TextareaAutosize} from "@mui/material";
+import {CreateStudent} from "../../../validations/admin_forms";
 import Grid from "@mui/material/Grid";
 
 
@@ -55,7 +54,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function CreateStudent() {
+export default function CreateNewStudent() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -65,11 +64,10 @@ export default function CreateStudent() {
         setOpen(false);
     };
 
-    const CreateStudent = async (data) => {
+    const SaveStudent = async (data) => {
         try {
             let payload = {
-                title: data.title,
-                description: data.default
+                email: data.email,
             }
         } catch (e) {
 
@@ -78,12 +76,11 @@ export default function CreateStudent() {
 
     const formik = useFormik({
         initialValues: {
-            title: '',
-            description: '',
+            email: '',
         },
-        validationSchema: CreateNote,
+        validationSchema: CreateStudent,
         onSubmit: (values) => {
-            CreateStudent(values);
+            SaveStudent(values);
         },
     });
 
@@ -106,20 +103,24 @@ export default function CreateStudent() {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12}>
                                 <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
+                                    margin="normal"
                                     fullWidth
-                                    id="firstName"
-                                    label="Email"
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
                                     autoFocus
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.email && Boolean(formik.errors.email)}
+                                    helperText={formik.touched.email && formik.errors.email}
                                 />
                             </Grid>
                         </Grid>
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={formik.handleSubmit}>
+                    <Button autoFocus onClick={handleClose}>
                         Cancel
                     </Button>
                     <Button autoFocus onClick={formik.handleSubmit}>

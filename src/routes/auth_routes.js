@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "../views/auth/login";
-import ChangePassword from "../views/auth/change_password";
+import ChangePassword from "../views/auth/update_account";
 
 const AuthRoutes = () => {
     return (

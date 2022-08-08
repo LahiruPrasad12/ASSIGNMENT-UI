@@ -8,7 +8,11 @@ export const LoginForm = Yup.object().shape({
         .required('Required'),
 });
 
-export const SetNewPassword = Yup.object().shape({
+export const UpdateProfile = Yup.object().shape({
+    first_name: Yup.string().required('required'),
+    last_name: Yup.string().required('required'),
+    DOB: Yup.string().required('required'),
+    mobile: Yup.string().required('required'),
     current_password: Yup.string()
         .max(50, 'Too Long!')
         .required('Required'),

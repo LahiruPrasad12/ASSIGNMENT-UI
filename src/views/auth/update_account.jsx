@@ -11,9 +11,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
 
 
-import {SetNewPassword} from "../../validations/auth_forms";
+import {UpdateProfile} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
-import auth from "../../apis/modules/auth";
 import Info from '../../alerts/info'
 import Grid from "@mui/material/Grid";
 
@@ -46,11 +45,15 @@ export default function ChangePassword() {
 
     const formik = useFormik({
         initialValues: {
+            first_name:'',
+            last_name:'',
+            DOB:'',
+            mobile:'',
             current_password: '',
             password: '',
             confirm_password: '',
         },
-        validationSchema: SetNewPassword,
+        validationSchema: UpdateProfile,
         onSubmit: (values) => {
             setNewPassword(values);
         },
@@ -125,7 +128,7 @@ export default function ChangePassword() {
                                     fullWidth
                                     name="mobile"
                                     label="Contact Number"
-                                    type="text"
+                                    type="number"
                                     id="mobile"
                                     value={formik.values.mobile}
                                     onChange={formik.handleChange}

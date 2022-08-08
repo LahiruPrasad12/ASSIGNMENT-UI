@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import {styled} from '@mui/material/styles';
@@ -14,6 +14,8 @@ import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {CreateStudent} from "../../../validations/admin_forms";
 import Grid from "@mui/material/Grid";
+import LoadingButton from "@mui/lab/LoadingButton";
+import adminApis from "../../../apis/modules/admin_apis";
 
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -56,6 +58,8 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CreateNewStudent() {
     const [open, setOpen] = React.useState(false);
+    const [btnLoading, setBtnLoading] = useState(false);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -66,12 +70,16 @@ export default function CreateNewStudent() {
 
     const SaveStudent = async (data) => {
         try {
+            setBtnLoading(true)
             let payload = {
                 email: data.email,
             }
+            let respond =  (await adminApis.createNewStudent(payload))
+            console.log(respond)
         } catch (e) {
-
+            alert('error')
         }
+        setBtnLoading(false)
     }
 
     const formik = useFormik({
@@ -120,12 +128,18 @@ export default function CreateNewStudent() {
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
+                    <Button autoFocus variant="contained" color="inherit" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button autoFocus onClick={formik.handleSubmit}>
-                        Create User
-                    </Button>
+                    <LoadingButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        loading={btnLoading}
+                        onClick={formik.handleSubmit}
+                    >
+                        Create
+                    </LoadingButton>
                 </DialogActions>
             </BootstrapDialog>
         </div>

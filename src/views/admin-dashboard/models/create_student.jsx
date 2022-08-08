@@ -14,6 +14,7 @@ import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {CreateNote} from "../../../validations/student_forms";
 import {TextareaAutosize} from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -64,13 +65,13 @@ export default function CreateStudent() {
         setOpen(false);
     };
 
-    const CreateStudent = async(data)=>{
-        try{
+    const CreateStudent = async (data) => {
+        try {
             let payload = {
-                title : data.title,
-                description : data.default
+                title: data.title,
+                description: data.default
             }
-        }catch (e){
+        } catch (e) {
 
         }
     }
@@ -91,46 +92,38 @@ export default function CreateStudent() {
         <div>
             <Button sx={{
                 float: "right",
-                marginTop: '20px'
             }} variant="contained" startIcon={<AddIcon/>} onClick={handleClickOpen}>Create Student</Button>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
-                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                <BootstrapDialogTitle id="customized-dialog-title">
                     CREATE NEW STUDENT
                 </BootstrapDialogTitle>
-                <DialogContent dividers>
+                <DialogContent dividers sx={{width:'100%'}}>
                     <Typography gutterBottom>
-                        <TextField
-                            margin="normal"
-                            id="title"
-                            label="Email Title"
-                            name="title"
-                            autoFocus
-                            value={formik.values.title}
-                            onChange={formik.handleChange}
-                            error={formik.touched.title && Boolean(formik.errors.title)}
-                            helperText={formik.touched.title && formik.errors.title}
-                        />
-                        <TextField
-                            margin="normal"
-                            id="description"
-                            label="Description"
-                            name="description"
-                            autoFocus
-                            value={formik.values.description}
-                            onChange={formik.handleChange}
-                            error={formik.touched.description && Boolean(formik.errors.description)}
-                            helperText={formik.touched.description && formik.errors.description}
-
-                        />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="Email"
+                                    autoFocus
+                                />
+                            </Grid>
+                        </Grid>
                     </Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={formik.handleSubmit}>
-                        Save changes
+                        Cancel
+                    </Button>
+                    <Button autoFocus onClick={formik.handleSubmit}>
+                        Create User
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

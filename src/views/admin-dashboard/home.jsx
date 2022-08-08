@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import StudentNav from '../../layouts/student-navbar'
+import AdminNavBar from '../../layouts/admin-navbar'
 import Container from "@mui/material/Container";
-import CreateNote from '../student-dashboard/models/new_note'
+import CreateStudent from '../admin-dashboard/models/create_student'
+import AllStudents from '../admin-dashboard/includes/AllStudents'
 import {ReactNode} from "react";
 import Box from "@mui/material/Box";
 
@@ -20,14 +21,16 @@ const Home = () => {
     return (
 
         <Container component="main" sx={{marginTop: '3%'}}>
-            <StudentNav/>
+            <AdminNavBar/>
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 2,
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                <CreateNote/>
+                <CreateStudent/>
+                <AllStudents/>
+
 
             </Box>
 

@@ -5,5 +5,5 @@ export const LoginForm = Yup.object().shape({
     password: Yup.string()
         .min(8, 'password must be at least 8 character')
         .max(50, 'Too Long!')
-        .required('required'),
+        .required('Required'),
 });

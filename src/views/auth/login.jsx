@@ -12,11 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import { LoginForm } from "../../validations";
-import { Field, Form, Formik } from "formik";
-
-
+import { useFormik } from 'formik';
+import {LoginForm} from "../../validations";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,14 +30,20 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+    const login = (data) => {
+
     };
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: LoginForm,
+        onSubmit: (values) => {
+            login(JSON.stringify(values, null, 2));
+        },
+    });
 
     return (
         <ThemeProvider theme={theme}>
@@ -60,77 +63,59 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Formik
-                        initialValues={{
-                            email: "",
-                            password: "",
-                        }}
-                        validationSchema={LoginForm}
-                        onSubmit={(values) => {
-                            // login(values);
-                            console.log(values)
-                        }}
-                    >
-                        {({ errors, touched }) => (
-                            <Form>
-                                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                                    <div>
-                                        <Field
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            class="form-control"
-                                            placeholder="Email Address"
-                                        />
-                                        {errors.email && touched.email ? (
-                                            <p id={"login-error"} className="text-danger">
-                                                {errors.email}
-                                            </p>
-                                        ) : null}
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            class="form-control"
-                                            placeholder="Password"
-                                        />
-                                        {errors.password && touched.password ? (
-                                            <p id={"login-error"} className="text-danger">
-                                                {errors.password}
-                                            </p>
-                                        ) : null}
-                                    </div>
-                                    <FormControlLabel
-                                        control={<Checkbox value="remember" color="primary" />}
-                                        label="Remember me"
-                                    />
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
-                                        Sign In
-                                    </Button>
-                                    <Grid container>
-                                        <Grid item xs>
-                                            <Link href="#" variant="body2">
-                                                Forgot password?
-                                            </Link>
-                                        </Grid>
-                                        <Grid item>
-                                            <Link href="#" variant="body2">
-                                                {"Don't have an account? Sign Up"}
-                                            </Link>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </Form>
-                        )}
-                    </Formik>
-
+                    <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>

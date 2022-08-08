@@ -1,14 +1,11 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Login from './views/auth/login'
+import Auth_routes from './routes/auth_routes'
 const Routers = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" exact element={<Login/>} ></Route>
-            </Routes>
-        </BrowserRouter>
+        <div>
+            <Auth_routes/>
+        </div>
     );
 };
 

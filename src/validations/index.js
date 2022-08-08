@@ -7,3 +7,16 @@ export const LoginForm = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
 });
+
+export const SetNewPassword = Yup.object().shape({
+    current_password: Yup.string()
+        .max(50, 'Too Long!')
+        .required('Required'),
+    password: Yup.string()
+        .min(8, 'password must be at least 8 character')
+        .max(50, 'Too Long!')
+        .required('required'),
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref('password'), ''], 'passwords must match')
+        .required('required'),
+});

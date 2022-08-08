@@ -13,7 +13,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
 
 
-import {LoginForm} from "../../validations";
+import {SetNewPassword} from "../../validations";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
 import Info from '../../alerts/info'
@@ -26,15 +26,17 @@ export default function ChangePassword() {
     const [error, setError] = useState(undefined);
 
 
-    const login = async (data) => {
+    const setNewPassword = async (data) => {
         try {
             setBtnLoading(true);
             let payload = {
-                email: data.email,
+                current_password: data.current_password,
                 password: data.password,
+                confirm_password: data.confirm_password
             };
-            let respond = (await auth.login(payload)).data;
-            localStorage.setItem("JWT", respond.token);
+            console.log(payload)
+            // let respond = (await auth.login(payload)).data;
+
 
         } catch (e) {
             localStorage.clear();
@@ -45,12 +47,13 @@ export default function ChangePassword() {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
+            current_password: '',
             password: '',
+            confirm_password: '',
         },
-        validationSchema: LoginForm,
+        validationSchema: SetNewPassword,
         onSubmit: (values) => {
-            login(values);
+            setNewPassword(values);
         },
     });
 
@@ -77,15 +80,15 @@ export default function ChangePassword() {
                         <TextField
                             margin="normal"
                             fullWidth
-                            name="password"
+                            name="current_password"
                             label="Current Password"
                             type="password"
-                            id="password"
+                            id="current_password"
                             autoComplete="current-password"
-                            value={formik.values.password}
+                            value={formik.values.current_password}
                             onChange={formik.handleChange}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
+                            error={formik.touched.current_password && Boolean(formik.errors.current_password)}
+                            helperText={formik.touched.current_password && formik.errors.current_password}
                         />
                         <TextField
                             margin="normal"
@@ -103,15 +106,15 @@ export default function ChangePassword() {
                         <TextField
                             margin="normal"
                             fullWidth
-                            name="password"
+                            name="confirm_password"
                             label="Confirm Password"
                             type="password"
-                            id="password"
+                            id="confirm_password"
                             autoComplete="current-password"
-                            value={formik.values.password}
+                            value={formik.values.confirm_password}
                             onChange={formik.handleChange}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
+                            error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
+                            helperText={formik.touched.confirm_password && formik.errors.confirm_password}
                         />
                         <LoadingButton
                             type="submit"

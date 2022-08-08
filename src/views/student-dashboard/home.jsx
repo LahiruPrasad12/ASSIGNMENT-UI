@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import StudentNav from '../../layouts/student-navbar'
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import {Button} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-
+import CreateNote from '../student-dashboard/models/new_note'
 
 const Home = () => {
+    const [openStatus, setOpenStatus] = useState(false);
+
+    const OpenOrDialog=()=>{
+        setOpenStatus(!openStatus);
+    }
+
     return (
 
         <Container component="main" sx={{marginTop: '3%'}}>
@@ -17,12 +20,9 @@ const Home = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                <Button sx={{
-                    float: "right",
-                    marginTop:'20px'
-                }} variant="contained" startIcon={<AddIcon />}>Create Note</Button>
-
             </box>
+
+            <CreateNote/>
         </Container>
     );
 };

@@ -13,6 +13,8 @@ import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {CreateNote} from "../../../validations/student_forms";
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 
@@ -56,6 +58,12 @@ BootstrapDialogTitle.propTypes = {
 
 export default function UpdateNote(props) {
     const [open, setOpen] = React.useState(false);
+
+    const [is_update, setIsUpdate] = React.useState(false);
+
+    const IsUpdate=()=>{
+        setIsUpdate(!is_update);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -103,6 +111,7 @@ export default function UpdateNote(props) {
                 <DialogContent dividers>
                     <Typography gutterBottom>
                         <TextField
+                            disabled={!is_update}
                             fullWidth
                             margin="normal"
                             id="title"
@@ -115,6 +124,7 @@ export default function UpdateNote(props) {
                             helperText={formik.touched.title && formik.errors.title}
                         />
                         <TextField
+                            disabled={!is_update}
                             fullWidth
                             margin="normal"
                             id="description"
@@ -129,9 +139,20 @@ export default function UpdateNote(props) {
                         />
                     </Typography>
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={formik.handleSubmit}>
-                        UPDATE
+                <DialogActions hidden={is_update}>
+                    <Button autoFocus variant="contained" color="inherit" startIcon={<EditIcon />} onClick={IsUpdate}>
+                        EDITE
+                    </Button>
+                    <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+                        Delete
+                    </Button>
+                </DialogActions>
+                <DialogActions hidden={!is_update}>
+                    <Button autoFocus variant="contained" color="inherit" onClick={IsUpdate}>
+                        Cancel
+                    </Button>
+                    <Button variant="contained" color="info">
+                        Update
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

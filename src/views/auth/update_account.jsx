@@ -13,6 +13,7 @@ import {useFormik} from 'formik';
 
 import {UpdateProfile} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
+import SuccessToast from '../../toasts/success'
 import Info from '../../alerts/info'
 import Grid from "@mui/material/Grid";
 import auth from "../../apis/modules/auth";
@@ -24,9 +25,10 @@ export default function ChangePassword() {
 
     const [btnLoading, setBtnLoading] = useState(false);
     const [error, setError] = useState(undefined);
+    const [success, setSuccess] = useState(undefined);
 
 
-    const setNewPassword = async (data) => {
+    const updateMyAccount = async (data) => {
         try {
             setBtnLoading(true);
             let payload = {
@@ -38,14 +40,13 @@ export default function ChangePassword() {
                 password: data.password,
                 confirm_password: data.confirm_password
             };
-            let respond = (await auth.createNewUser(payload)).data;
-            console.log(payload)
-            // let respond = (await auth.login(payload)).data;
-
-
-        } catch (e) {
+            (await auth.updateMyAccount(payload)).data;
+            setSuccess('Your account is update successfully')
+            (await auth.logout())
             localStorage.clear();
-            setError('Your email or password is incorrect')
+            window.location = '/'
+        } catch (e) {
+            setError('Your current password is incorrect')
         }
         setBtnLoading(false);
     };
@@ -62,7 +63,7 @@ export default function ChangePassword() {
         },
         validationSchema: UpdateProfile,
         onSubmit: (values) => {
-            setNewPassword(values);
+            updateMyAccount(values);
         },
     });
 
@@ -205,6 +206,9 @@ export default function ChangePassword() {
 
             {
                 error ? <ErrorToast message={error}/> : ''
+            }
+            {
+                success ? <SuccessToast message={success}/> : ''
             }
 
 

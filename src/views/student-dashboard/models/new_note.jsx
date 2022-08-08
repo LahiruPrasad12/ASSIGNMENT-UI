@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
-import {LoginForm} from "../../../validations";
+import {LoginForm} from "../../../validations/auth_forms";
 import {TextareaAutosize} from "@mui/material";
 
 

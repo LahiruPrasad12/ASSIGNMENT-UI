@@ -11,7 +11,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
 
 
-import {SetNewPassword} from "../../validations";
+import {SetNewPassword} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
 import Info from '../../alerts/info'

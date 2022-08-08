@@ -15,7 +15,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
 import Logo from '../../assets/logo/logo.svg'
 
-import {LoginForm} from "../../validations";
+import {LoginForm} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
 import {dark} from "@mui/material/styles/createPalette";

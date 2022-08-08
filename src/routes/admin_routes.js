@@ -1,15 +1,15 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Home from "../views/student-dashboard/home";
+import Home from "../views/admin-dashboard/home";
 
-const StudentRoutes = () => {
+const AdminRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/student-home" exact element={<Home/>} ></Route>
+                <Route path="/admin-home" exact element={<Home/>} ></Route>
             </Routes>
         </Router>
     );
 };
 
-export default StudentRoutes;
+export default AdminRoutes;

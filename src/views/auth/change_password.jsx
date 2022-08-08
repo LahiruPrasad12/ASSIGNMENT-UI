@@ -5,8 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -18,6 +16,7 @@ import {useFormik} from 'formik';
 import {LoginForm} from "../../validations";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
+import Info from '../../alerts/info'
 
 const theme = createTheme();
 
@@ -67,11 +66,12 @@ export default function ChangePassword() {
                         alignItems: 'center',
                     }}
                 >
+                    <Info message='You have to change your password by providing temporary password as current password'/>
                     <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                         <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Set New Password
                     </Typography>
                     <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
@@ -113,10 +113,6 @@ export default function ChangePassword() {
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
-                            label="Remember me"
-                        />
                         <LoadingButton
                             type="submit"
                             fullWidth
@@ -124,20 +120,8 @@ export default function ChangePassword() {
                             loading={btnLoading}
                             sx={{mt: 2, mb: 2}}
                         >
-                            Sign In
+                            Change Password
                         </LoadingButton>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
             </Container>

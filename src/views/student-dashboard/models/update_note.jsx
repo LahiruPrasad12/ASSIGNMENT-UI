@@ -9,11 +9,11 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import AddIcon from '@mui/icons-material/Add';
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {CreateNote} from "../../../validations/student_forms";
-import {TextareaAutosize} from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -54,7 +54,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function AddNote() {
+export default function UpdateNote() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -64,7 +64,7 @@ export default function AddNote() {
         setOpen(false);
     };
 
-    const SaveData = async(data)=>{
+    const UpdateData = async(data)=>{
         try{
             let payload = {
                 title : data.title,
@@ -77,30 +77,29 @@ export default function AddNote() {
 
     const formik = useFormik({
         initialValues: {
-            title: '',
-            description: '',
+            title: 'AA',
+            description: 'aaa',
         },
         validationSchema: CreateNote,
         onSubmit: (values) => {
             alert('ok')
-            SaveData(values);
+            UpdateData(values);
         },
     });
 
 
     return (
         <div>
-            <Button sx={{
-                float: "right",
-                marginTop: '20px'
-            }} variant="contained" startIcon={<AddIcon/>} onClick={handleClickOpen}>Create Note</Button>
+            <IconButton variant="contained" onClick={handleClickOpen} aria-label="delete" size="small">
+                <EditIcon fontSize="inherit" />
+            </IconButton>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    CREATE NEW NOTE
+                    UPDATE NOTE
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
@@ -108,7 +107,7 @@ export default function AddNote() {
                             fullWidth
                             margin="normal"
                             id="title"
-                            label="Email Title"
+                            label="Title"
                             name="title"
                             autoFocus
                             value={formik.values.title}
@@ -133,7 +132,7 @@ export default function AddNote() {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={formik.handleSubmit}>
-                        Save changes
+                        UPDATE
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

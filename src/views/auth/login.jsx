@@ -13,12 +13,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from 'formik';
-import Logo from '../../assets/logo/logo.svg'
 
 import {LoginForm} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
 import auth from "../../apis/modules/auth";
-import {dark} from "@mui/material/styles/createPalette";
 
 function Copyright(props) {
     return (
@@ -50,7 +48,13 @@ export default function SignIn() {
             };
             let respond = (await auth.login(payload)).data;
             localStorage.setItem("JWT", respond.token);
-
+            if(respond.data.user.role === 'admin'){
+                window.location = '/admin-home'
+            }else if(respond.data.user.status === false){
+                window.location = '/update-account'
+            }else {
+                window.location = '/student-home'
+            }
         } catch (e) {
             localStorage.clear();
             setError('Your email or password is incorrect')

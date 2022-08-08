@@ -15,6 +15,8 @@ import {UpdateProfile} from "../../validations/auth_forms";
 import ErrorToast from '../../toasts/error'
 import Info from '../../alerts/info'
 import Grid from "@mui/material/Grid";
+import auth from "../../apis/modules/auth";
+
 
 const theme = createTheme();
 
@@ -28,10 +30,15 @@ export default function ChangePassword() {
         try {
             setBtnLoading(true);
             let payload = {
+                first_name:data.first_name,
+                last_name:data.last_name,
+                DOB:data.DOB,
+                mobile:data.mobile,
                 current_password: data.current_password,
                 password: data.password,
                 confirm_password: data.confirm_password
             };
+            let respond = (await auth.createNewUser(payload)).data;
             console.log(payload)
             // let respond = (await auth.login(payload)).data;
 

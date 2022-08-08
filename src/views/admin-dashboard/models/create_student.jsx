@@ -16,6 +16,9 @@ import {CreateStudent} from "../../../validations/admin_forms";
 import Grid from "@mui/material/Grid";
 import LoadingButton from "@mui/lab/LoadingButton";
 import adminApis from "../../../apis/modules/admin_apis";
+import ErrorToast from '../../../toasts/error'
+import SuccessToast from '../../../toasts/success'
+
 
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -59,9 +62,14 @@ BootstrapDialogTitle.propTypes = {
 export default function CreateNewStudent() {
     const [open, setOpen] = React.useState(false);
     const [btnLoading, setBtnLoading] = useState(false);
+    const [error, setError] = useState(undefined);
+    const [success, setSuccess] = useState(undefined);
+
 
 
     const handleClickOpen = () => {
+        setError(undefined)
+        setSuccess(undefined)
         setOpen(true);
     };
     const handleClose = () => {
@@ -75,9 +83,10 @@ export default function CreateNewStudent() {
                 email: data.email,
             }
             let respond =  (await adminApis.createNewStudent(payload))
-            console.log(respond)
+            setSuccess('Student was created successfully')
+            handleClose();
         } catch (e) {
-            alert('error')
+            setError('This mail is already exists')
         }
         setBtnLoading(false)
     }
@@ -142,6 +151,13 @@ export default function CreateNewStudent() {
                     </LoadingButton>
                 </DialogActions>
             </BootstrapDialog>
+
+            {
+                error ? <ErrorToast message={error}/> : ''
+            }
+            {
+                success ? <SuccessToast message={success}/> : ''
+            }
         </div>
     );
 }

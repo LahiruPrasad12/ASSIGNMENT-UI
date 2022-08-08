@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
-import {LoginForm} from "../../../validations/auth_forms";
+import {CreateNote} from "../../../validations/student_forms";
 import {TextareaAutosize} from "@mui/material";
 
 
@@ -64,16 +64,29 @@ export default function CustomizedDialogs() {
         setOpen(false);
     };
 
+    const SaveData = async(data)=>{
+        try{
+            let payload = {
+                title : data.title,
+                description : data.default
+            }
+        }catch (e){
+
+        }
+    }
+
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            title: '',
+            description: '',
         },
-        validationSchema: LoginForm,
+        validationSchema: CreateNote,
         onSubmit: (values) => {
-            // login(values);
+            alert('ok')
+            SaveData(values);
         },
     });
+
 
     return (
         <div>
@@ -94,34 +107,32 @@ export default function CustomizedDialogs() {
                         <TextField
                             fullWidth
                             margin="normal"
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="title"
+                            label="Email Title"
+                            name="title"
                             autoFocus
-                            value={formik.values.email}
+                            value={formik.values.title}
                             onChange={formik.handleChange}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
+                            error={formik.touched.title && Boolean(formik.errors.title)}
+                            helperText={formik.touched.title && formik.errors.title}
                         />
                         <TextField
                             fullWidth
                             margin="normal"
-                            id="email"
+                            id="description"
                             label="Description"
-                            name="email"
-                            autoComplete="email"
+                            name="description"
                             autoFocus
-                            value={formik.values.email}
+                            value={formik.values.description}
                             onChange={formik.handleChange}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
+                            error={formik.touched.description && Boolean(formik.errors.description)}
+                            helperText={formik.touched.description && formik.errors.description}
 
                         />
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
+                    <Button autoFocus onClick={formik.handleSubmit}>
                         Save changes
                     </Button>
                 </DialogActions>

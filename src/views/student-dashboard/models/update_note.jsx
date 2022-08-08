@@ -54,7 +54,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function UpdateNote() {
+export default function UpdateNote(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -77,12 +77,11 @@ export default function UpdateNote() {
 
     const formik = useFormik({
         initialValues: {
-            title: 'AA',
-            description: 'aaa',
+            title: props.title,
+            description: props.description,
         },
         validationSchema: CreateNote,
         onSubmit: (values) => {
-            alert('ok')
             UpdateData(values);
         },
     });

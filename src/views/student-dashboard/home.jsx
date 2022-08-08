@@ -36,7 +36,7 @@ const Home = () => {
                         marginTop: 3
                     }}>
                         <Box sx={{float: 'right'}}>
-                            <UpdateNote sx={{float: "left"}}/>
+                            <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
                         </Box>
                         <h3>Title</h3>
                         <h5>Description</h5>
@@ -47,7 +47,7 @@ const Home = () => {
                         marginTop: 3
                     }}>
                         <Box sx={{float: 'right'}}>
-                            <UpdateNote sx={{float: "left"}}/>
+                            <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
                         </Box>
                         <h3>Title</h3>
                         <h5>Description</h5>
@@ -57,7 +57,7 @@ const Home = () => {
                         marginTop: 3
                     }}>
                         <Box sx={{float: 'right'}}>
-                            <UpdateNote sx={{float: "left"}}/>
+                            <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
                         </Box>
                         <h3>Title</h3>
                         <h5>Description</h5>
@@ -67,7 +67,7 @@ const Home = () => {
                         marginTop: 3
                     }}>
                         <Box sx={{float: 'right'}}>
-                            <UpdateNote sx={{float: "left"}}/>
+                            <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
                         </Box>
                         <h3>Title</h3>
                         <h5>Description</h5>

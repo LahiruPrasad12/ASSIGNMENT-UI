@@ -82,7 +82,6 @@ export default function AddNote() {
         },
         validationSchema: CreateNote,
         onSubmit: (values) => {
-            alert('ok')
             SaveData(values);
         },
     });

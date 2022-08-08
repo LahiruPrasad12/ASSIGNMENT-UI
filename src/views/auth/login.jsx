@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -16,13 +16,14 @@ import {useFormik} from 'formik';
 
 import {LoginForm} from "../../validations";
 import ErrorToast from '../../toasts/error'
+import auth from "../../apis/modules/auth";
 
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                Your Website
+                Surge Global
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -37,8 +38,13 @@ export default function SignIn() {
     const [error, setError] = useState(undefined);
 
 
-    const login = (data) => {
-
+    const login = async (data) => {
+        setBtnLoading(true);
+        let payload = {
+            email: data.email,
+            password: data.password,
+        };
+        let respond = (await auth.login(payload)).data;
     };
 
     const formik = useFormik({
@@ -102,14 +108,15 @@ export default function SignIn() {
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
-                        <Button
+                        <LoadingButton
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            loading={btnLoading}
+                            sx={{mt: 2, mb: 2}}
                         >
                             Sign In
-                        </Button>
+                        </LoadingButton>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">

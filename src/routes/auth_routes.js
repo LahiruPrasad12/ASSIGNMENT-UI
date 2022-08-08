@@ -8,7 +8,7 @@ const AuthRoutes = () => {
         <Router>
             <Routes>
                 <Route path="/" exact element={<Login/>} ></Route>
-                <Route path="/set-password" exact element={<ChangePassword/>} ></Route>
+                <Route path="/update-account" exact element={<ChangePassword/>} ></Route>
             </Routes>
         </Router>
     );

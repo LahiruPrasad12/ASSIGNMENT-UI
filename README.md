@@ -16,5 +16,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     Admin : admin@gmail.com
             admin123
 
-    Student : student1@gmail.com
-              student123
+    Student : sihinaoshada380@gmail.com
+              90c45947

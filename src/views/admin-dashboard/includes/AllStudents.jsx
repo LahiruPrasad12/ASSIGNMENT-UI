@@ -4,6 +4,7 @@ import adminAPIS from '../../../apis/modules/admin_apis'
 import {useEffect} from "react";
 import SingleStudents from '../models/single_student'
 import Loader from '../../../loader/loader'
+import TextField from "@mui/material/TextField";
 
 
 const columns = [
@@ -33,10 +34,10 @@ export default function AllUsers() {
         childFunc.current()
     }
 
-    const getStudents = async () => {
+    const getStudents = async (query='') => {
         try {
             setLoading(true)
-            const respond = (await adminAPIS.getUsers()).data.data.users.map((e, index) => ({
+            const respond = (await adminAPIS.getUsers(query)).data.data.users.map((e, index) => ({
                 id: index + 1,
                 first_name: e.first_name,
                 last_name: e.last_name,
@@ -55,6 +56,16 @@ export default function AllUsers() {
     }
     return (
         <div style={{height: 400, width: '100%', marginTop: '10px'}}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e)=>{getStudents(e.target.value)}}
+            />
             <SingleStudents childFunc={childFunc} student={singleStudent}/>
             {
                 is_loading ? <Loader/> : <DataGrid

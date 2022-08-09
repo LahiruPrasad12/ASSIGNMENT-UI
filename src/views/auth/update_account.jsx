@@ -47,7 +47,13 @@ export default function ChangePassword() {
             localStorage.clear();
             window.location = '/'
         } catch (e) {
-            setError('Your current password is incorrect')
+            if(e.request.status === 401){
+                localStorage.clear();
+                window.location = '/'
+            }else {
+                setError('Your current password is incorrect')
+            }
+
         }
         setBtnLoading(false);
     };

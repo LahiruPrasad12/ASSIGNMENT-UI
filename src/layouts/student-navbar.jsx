@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import auth from "../apis/modules/auth";
 
 const pages = ['My Notes', 'About Us', 'Contact Us'];
 const settings = ['Logout'];
@@ -35,8 +36,14 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(null);
     };
 
-    const logout = ()=>{
-        alert('ok')
+    const logout = async()=>{
+        try{
+            await auth.logout()
+        }catch (e) {
+            alert('error')
+        }
+        localStorage.clear();
+        window.location = '/'
     }
 
     return (

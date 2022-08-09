@@ -35,7 +35,12 @@ const Home = () => {
            let respond =  (await studentAPI.getMyNotices()).data.data.all_notices
             setNotices(respond)
         }catch (e) {
+            if(e.request.status === 401){
+                localStorage.clear();
+                window.location = '/'
+            }else {
 
+            }
         }
         setLoading(false)
     }

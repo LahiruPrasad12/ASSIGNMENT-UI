@@ -50,6 +50,12 @@ export default function AllUsers() {
             console.log(respond)
             setStudents(respond)
         } catch (e) {
+            if(e.request.status === 401){
+                localStorage.clear();
+                window.location = '/'
+            }else {
+
+            }
 
         }
         setLoading(false)

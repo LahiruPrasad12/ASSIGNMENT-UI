@@ -65,7 +65,8 @@ export default function CreateNewStudent() {
     const [error, setError] = useState(undefined);
     const [success, setSuccess] = useState(undefined);
 
-
+    const childFuncSuccess = React.useRef(null)
+    const childFuncError = React.useRef(null)
 
     const handleClickOpen = () => {
         setError(undefined)
@@ -84,9 +85,11 @@ export default function CreateNewStudent() {
             }
             let respond =  (await adminApis.createNewStudent(payload))
             setSuccess('Student was created successfully')
+            childFuncSuccess.current()
             handleClose();
         } catch (e) {
             setError('This mail is already exists')
+            childFuncError.current()
         }
         setBtnLoading(false)
     }
@@ -152,12 +155,8 @@ export default function CreateNewStudent() {
                 </DialogActions>
             </BootstrapDialog>
 
-            {
-                error ? <ErrorToast message={error}/> : ''
-            }
-            {
-                success ? <SuccessToast message={success}/> : ''
-            }
+            <ErrorToast childFunc={childFuncError} message={error}/>
+            <SuccessToast childFunc={childFuncSuccess} message={success}/>
         </div>
     );
 }

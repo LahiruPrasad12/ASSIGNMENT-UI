@@ -64,6 +64,9 @@ export default function UpdateNote(props) {
 
     const [is_update, setIsUpdate] = React.useState(false);
 
+    const childFuncSuccess = React.useRef(null)
+    const childFuncError = React.useRef(null)
+
     const IsUpdate=()=>{
         setIsUpdate(!is_update);
     };
@@ -86,9 +89,11 @@ export default function UpdateNote(props) {
             }
             await studentAPI.updateNotice(props.id,payload);
             setSuccess('Notice update successfully')
+            childFuncSuccess.current()
             handleClose()
         }catch (e){
             setError(e.message)
+            childFuncError.current()
         }
     }
 
@@ -185,12 +190,8 @@ export default function UpdateNote(props) {
                 </DialogActions>
             </BootstrapDialog>
 
-            {
-                error ? <ErrorToast message={error}/> : ''
-            }
-            {
-                success ? <SuccessToast message={success}/> : ''
-            }
+            <ErrorToast childFunc={childFuncError} message={error}/>
+            <SuccessToast childFunc={childFuncSuccess} message={success}/>
         </div>
     );
 }

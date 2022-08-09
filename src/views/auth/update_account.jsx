@@ -43,7 +43,7 @@ export default function ChangePassword() {
             };
             (await auth.updateMyAccount(payload));
             setSuccess('Your account is update successfully')
-            (await auth.logout())
+            await auth.logout()
             localStorage.clear();
             window.location = '/'
         } catch (e) {

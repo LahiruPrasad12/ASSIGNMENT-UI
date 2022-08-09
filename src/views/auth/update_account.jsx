@@ -27,6 +27,8 @@ export default function ChangePassword() {
     const [error, setError] = useState(undefined);
     const [success, setSuccess] = useState(undefined);
 
+    const childFuncSuccess = React.useRef(null)
+    const childFuncError = React.useRef(null)
 
     const updateMyAccount = async (data) => {
         try {
@@ -43,6 +45,7 @@ export default function ChangePassword() {
             };
             (await auth.updateMyAccount(payload));
             setSuccess('Your account is update successfully')
+            childFuncSuccess.current()
             await auth.logout()
             localStorage.clear();
             window.location = '/'
@@ -52,6 +55,7 @@ export default function ChangePassword() {
                 window.location = '/'
             }else {
                 setError('Your current password is incorrect')
+                childFuncError.current()
             }
 
         }
@@ -211,13 +215,8 @@ export default function ChangePassword() {
                 </Box>
             </Container>
 
-
-            {
-                error ? <ErrorToast message={error}/> : ''
-            }
-            {
-                success ? <SuccessToast message={success}/> : ''
-            }
+            <ErrorToast childFunc={childFuncError} message={error}/>
+            <SuccessToast childFunc={childFuncSuccess} message={success}/>
 
 
         </ThemeProvider>

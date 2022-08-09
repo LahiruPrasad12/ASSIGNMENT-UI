@@ -17,7 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import studentAPI from '../../../apis/modules/student_apis'
 import SuccessToast from '../../../toasts/success'
 import ErrorToast from '../../../toasts/error'
-
+import SoloAlert from 'soloalert'
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
     '& .MuiDialogContent-root': {
@@ -69,6 +69,8 @@ export default function UpdateNote(props) {
     };
 
     const handleClickOpen = () => {
+        setError(undefined)
+        setSuccess(undefined)
         setOpen(true);
     };
     const handleClose = () => {
@@ -82,10 +84,28 @@ export default function UpdateNote(props) {
                 title : data.title,
                 description : data.description
             }
-            let respond = (await studentAPI.updateNotice(props.id,payload));
+            await studentAPI.updateNotice(props.id,payload);
             setSuccess('Notice update successfully')
             handleClose()
         }catch (e){
+            setError(e.message)
+        }
+    }
+
+    const deleteNotice = async()=>{
+        try{
+            SoloAlert.confirm({
+                title:"Title Here",
+                body:"Are you a Cat ?"
+            }).then(async value => {
+                if(value){
+                    (await studentAPI.deleteNotice(props.id));
+                    setSuccess('Notice deleted successfully')
+                    handleClose()
+                }
+            })
+
+        }catch (e) {
             setError(e.message)
         }
     }
@@ -151,7 +171,7 @@ export default function UpdateNote(props) {
                     <Button autoFocus variant="contained" color="inherit" startIcon={<EditIcon />} onClick={IsUpdate}>
                         EDITE
                     </Button>
-                    <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+                    <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteNotice}>
                         Delete
                     </Button>
                 </DialogActions>

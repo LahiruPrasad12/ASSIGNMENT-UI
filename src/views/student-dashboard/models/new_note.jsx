@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import {styled} from '@mui/material/styles';
@@ -13,8 +13,10 @@ import AddIcon from '@mui/icons-material/Add';
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {CreateNote} from "../../../validations/student_forms";
-import {TextareaAutosize} from "@mui/material";
-
+import studentAPI from '../../../apis/modules/student_apis'
+import SuccessToast from '../../../toasts/success'
+import ErrorToast from '../../../toasts/error'
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
     '& .MuiDialogContent-root': {
@@ -56,6 +58,12 @@ BootstrapDialogTitle.propTypes = {
 
 export default function AddNote() {
     const [open, setOpen] = React.useState(false);
+    const [success, setSuccess] = useState(undefined);
+    const [btnLoading, setBtnLoading] = useState(false);
+    const [error, setError] = useState(undefined);
+
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -66,13 +74,17 @@ export default function AddNote() {
 
     const SaveData = async(data)=>{
         try{
+            setBtnLoading(true)
             let payload = {
                 title : data.title,
                 description : data.default
             }
+            let respond = (await studentAPI.createNewNotice(payload)).data
+            setSuccess('Your notice is published successfully')
         }catch (e){
-
+            setError(e.message)
         }
+        setBtnLoading(false)
     }
 
     const formik = useFormik({
@@ -131,11 +143,18 @@ export default function AddNote() {
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={formik.handleSubmit}>
+                    <LoadingButton autoFocus onClick={formik.handleSubmit} loading={btnLoading}>
                         Save changes
-                    </Button>
+                    </LoadingButton>
                 </DialogActions>
             </BootstrapDialog>
+
+            {
+                error ? <ErrorToast message={error}/> : ''
+            }
+            {
+                success ? <SuccessToast message={success}/> : ''
+            }
         </div>
     );
 }

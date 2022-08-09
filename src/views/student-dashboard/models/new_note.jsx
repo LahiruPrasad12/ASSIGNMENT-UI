@@ -121,7 +121,7 @@ export default function AddNote(props) {
                             fullWidth
                             margin="normal"
                             id="title"
-                            label="Email Title"
+                            label="Title"
                             name="title"
                             autoFocus
                             value={formik.values.title}

@@ -43,7 +43,7 @@ export default function AllUsers() {
                 last_name: e.last_name,
                 mobile: e.mobile,
                 email: e.email,
-                DOB: new Date(e.DOB).getDate(),
+                DOB: new Date(e.DOB).toISOString().slice(0, 10),
                 account_type: e.account_type,
                 status: e.status
             }))

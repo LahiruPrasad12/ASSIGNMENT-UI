@@ -61,7 +61,7 @@ const Home = () => {
                                 }}>
                                     <Box sx={{float: 'right'}}>
                                         <UpdateNote sx={{float: "left"}} title={x.title} description={x.description}
-                                                    getNotices={getNotices} />
+                                                    getNotices={getNotices} id={x._id}/>
                                     </Box>
                                     <h3>{x.title}</h3>
                                     <h5>{x.description}</h5>

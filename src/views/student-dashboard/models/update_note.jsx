@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import {styled} from '@mui/material/styles';
@@ -17,8 +17,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import studentAPI from '../../../apis/modules/student_apis'
 import SuccessToast from '../../../toasts/success'
 import ErrorToast from '../../../toasts/error'
-import {useState} from "@types/react";
-
 
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -84,7 +82,7 @@ export default function UpdateNote(props) {
                 title : data.title,
                 description : data.description
             }
-            await studentAPI.updateNotice(payload);
+            let respond = (await studentAPI.updateNotice(props.id,payload));
             setSuccess('Notice update successfully')
             handleClose()
         }catch (e){
@@ -96,6 +94,7 @@ export default function UpdateNote(props) {
         initialValues: {
             title: props.title,
             description: props.description,
+            id:props.id
         },
         validationSchema: CreateNote,
         onSubmit: (values) => {
@@ -160,7 +159,7 @@ export default function UpdateNote(props) {
                     <Button autoFocus variant="contained" color="inherit" onClick={IsUpdate}>
                         Cancel
                     </Button>
-                    <Button variant="contained" color="info">
+                    <Button variant="contained" color="info" onClick={formik.handleSubmit}>
                         Update
                     </Button>
                 </DialogActions>

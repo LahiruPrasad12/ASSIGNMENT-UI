@@ -37,7 +37,7 @@ export default function SignIn() {
 
     const [btnLoading, setBtnLoading] = useState(false);
     const [error, setError] = useState(undefined);
-    const childFunc = React.useRef(null)
+    const childFuncError = React.useRef(null)
 
 
     const login = async (data) => {
@@ -58,7 +58,7 @@ export default function SignIn() {
                 window.location = '/student-home'
             }
         } catch (e) {
-            childFunc.current()
+            childFuncError.current()
             localStorage.clear();
             setError('Your email or password is incorrect')
         }
@@ -154,7 +154,7 @@ export default function SignIn() {
             </Container>
 
 
-             <ErrorToast childFunc={childFunc} message={error}/> }
+             <ErrorToast childFuncError={childFuncError} message={error}/> }
 
 
         </ThemeProvider>

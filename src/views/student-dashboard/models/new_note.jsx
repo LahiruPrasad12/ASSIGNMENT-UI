@@ -62,7 +62,8 @@ export default function AddNote(props) {
     const [btnLoading, setBtnLoading] = useState(false);
     const [error, setError] = useState(undefined);
 
-
+    const childFuncSuccess = React.useRef(null)
+    const childFuncError = React.useRef(null)
 
 
     const handleClickOpen = () => {
@@ -73,18 +74,20 @@ export default function AddNote(props) {
         setOpen(false);
     };
 
-    const SaveData = async(data)=>{
-        try{
+    const SaveData = async (data) => {
+        try {
             setBtnLoading(true)
             let payload = {
-                title : data.title,
-                description : data.description
+                title: data.title,
+                description: data.description
             }
             let respond = (await studentAPI.createNewNotice(payload)).data
             setSuccess('Your notice is published successfully')
+            childFuncSuccess.current()
             handleClose()
-        }catch (e){
+        } catch (e) {
             setError(e.message)
+            childFuncError.current()
         }
         setBtnLoading(false)
     }
@@ -151,12 +154,9 @@ export default function AddNote(props) {
                 </DialogActions>
             </BootstrapDialog>
 
-            {
-                error ? <ErrorToast message={error}/> : ''
-            }
-            {
-                success ? <SuccessToast message={success}/> : ''
-            }
+
+            <ErrorToast childFunc={childFuncError} message={error}/>
+            <SuccessToast childFunc={childFuncSuccess} message={success}/>
         </div>
     );
 }

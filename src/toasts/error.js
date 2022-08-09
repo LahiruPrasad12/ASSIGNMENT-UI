@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {Snackbar} from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-const Error = ({ childFunc,message }) => {
+const Error = ({ childFuncError,message }) => {
     const [open, setOpen] = useState(false);
     React.useEffect(() => {
-        childFunc.current = handleClickOpen
+        childFuncError.current = handleClickOpen
     }, [])
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {

@@ -1,15 +1,9 @@
-import React, {useState,forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {useState, forwardRef, useImperativeHandle, useRef} from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import adminAPIS from '../../../apis/modules/admin_apis'
 import {useEffect} from "react";
 import SingleStudents from '../models/single_student'
-import Slide from "@mui/material/Slide";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
+import Loader from '../../../loader/loader'
 
 
 const columns = [
@@ -25,7 +19,7 @@ const columns = [
 export default function AllUsers() {
     const childFunc = React.useRef(null)
     const [students, setStudents] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [is_loading, setLoading] = useState(false);
     const [singleStudent, setSingleStudent] = useState({});
 
 
@@ -41,6 +35,7 @@ export default function AllUsers() {
 
     const getStudents = async () => {
         try {
+            setLoading(true)
             const respond = (await adminAPIS.getUsers()).data.data.users.map((e, index) => ({
                 id: index + 1,
                 first_name: e.first_name,
@@ -48,27 +43,30 @@ export default function AllUsers() {
                 mobile: e.mobile,
                 email: e.email,
                 DOB: new Date(e.DOB).getDate(),
-                account_type:e.account_type,
-                status:e.status
+                account_type: e.account_type,
+                status: e.status
             }))
             console.log(respond)
             setStudents(respond)
         } catch (e) {
 
         }
+        setLoading(false)
     }
     return (
         <div style={{height: 400, width: '100%', marginTop: '10px'}}>
             <SingleStudents childFunc={childFunc} student={singleStudent}/>
-            <DataGrid
-                onCellClick={(e) => {
-                    viewData(e)
-                }}
-                rows={students}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-            />
+            {
+                is_loading ? <Loader/> : <DataGrid
+                    onCellClick={(e) => {
+                        viewData(e)
+                    }}
+                    rows={students}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                />
+            }
 
 
         </div>

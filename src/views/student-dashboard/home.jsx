@@ -7,6 +7,8 @@ import Grid from "@mui/material/Grid";
 import {ReactNode} from "react";
 import Box from "@mui/material/Box";
 import studentAPI from '../../apis/modules/student_apis'
+import Loader from '../../loader/loader'
+
 
 
 function Item(props: { children: ReactNode }) {
@@ -16,6 +18,8 @@ function Item(props: { children: ReactNode }) {
 const Home = () => {
     const [openStatus, setOpenStatus] = useState(false);
     const [notices, setNotices] = useState([]);
+    const [is_loading, setLoading] = useState(false);
+
 
     const OpenOrDialog = () => {
         setOpenStatus(!openStatus);
@@ -27,11 +31,13 @@ const Home = () => {
 
     const getNotices = async()=>{
         try{
+            setLoading(true)
            let respond =  (await studentAPI.getMyNotices()).data.data.all_notices
             setNotices(respond)
         }catch (e) {
 
         }
+        setLoading(false)
     }
 
     return (
@@ -45,23 +51,26 @@ const Home = () => {
                     alignItems: 'center',
                 }}>
                 <CreateNote getNotices={getNotices}/>
-                <Grid container spacing={1} sx={{marginLeft: 12}}>
-                    {
-                        notices.map((x)=>{
-                            return  <Grid item xs={3} border={1} borderColor={'blue'} sx={{
-                                marginRight: '10px',
-                                marginTop: 3
-                            }}>
-                                <Box sx={{float: 'right'}}>
-                                    <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
-                                </Box>
-                                <h3>{x.title}</h3>
-                                <h5>{x.description}</h5>
-                            </Grid>
-                        })
-                    }
+                {
+                    is_loading?<Loader/>: <Grid container spacing={1} sx={{marginLeft: 12}}>
+                        {
+                            notices.map((x)=>{
+                                return  <Grid item xs={3} border={1} borderColor={'blue'} sx={{
+                                    marginRight: '10px',
+                                    marginTop: 3
+                                }}>
+                                    <Box sx={{float: 'right'}}>
+                                        <UpdateNote sx={{float: "left"}} title={"Title 1"} description={"description 1"}/>
+                                    </Box>
+                                    <h3>{x.title}</h3>
+                                    <h5>{x.description}</h5>
+                                </Grid>
+                            })
+                        }
 
-                </Grid>
+                    </Grid>
+                }
+
             </box>
 
 

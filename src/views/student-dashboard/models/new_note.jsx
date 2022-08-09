@@ -56,7 +56,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function AddNote() {
+export default function AddNote(props) {
     const [open, setOpen] = React.useState(false);
     const [success, setSuccess] = useState(undefined);
     const [btnLoading, setBtnLoading] = useState(false);
@@ -69,6 +69,7 @@ export default function AddNote() {
         setOpen(true);
     };
     const handleClose = () => {
+        props.getNotices()
         setOpen(false);
     };
 
@@ -77,10 +78,11 @@ export default function AddNote() {
             setBtnLoading(true)
             let payload = {
                 title : data.title,
-                description : data.default
+                description : data.description
             }
             let respond = (await studentAPI.createNewNotice(payload)).data
             setSuccess('Your notice is published successfully')
+            handleClose()
         }catch (e){
             setError(e.message)
         }

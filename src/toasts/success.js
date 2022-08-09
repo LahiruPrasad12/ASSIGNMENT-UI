@@ -3,10 +3,10 @@ import React, {useState} from 'react';
 import {Snackbar} from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-const Success = ({ childFunc,message }) => {
+const Success = ({ childFuncSuccess,message }) => {
     const [open, setOpen] = useState(false);
     React.useEffect(() => {
-        childFunc.current = handleClickOpen
+        childFuncSuccess.current = handleClickOpen
     }, [])
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {

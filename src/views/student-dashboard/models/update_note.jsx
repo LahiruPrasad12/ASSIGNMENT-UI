@@ -190,8 +190,8 @@ export default function UpdateNote(props) {
                 </DialogActions>
             </BootstrapDialog>
 
-            <ErrorToast childFunc={childFuncError} message={error}/>
-            <SuccessToast childFunc={childFuncSuccess} message={success}/>
+            <ErrorToast childFuncError={childFuncError} message={error}/>
+            <SuccessToast childFuncSuccess={childFuncSuccess} message={success}/>
         </div>
     );
 }

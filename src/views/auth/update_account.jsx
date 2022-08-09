@@ -51,6 +51,8 @@ export default function ChangePassword() {
             window.location = '/'
         } catch (e) {
             if(e.request.status === 401){
+                setError('Your current password is incorrect')
+                childFuncError.current()
                 localStorage.clear();
                 window.location = '/'
             }else {
@@ -215,8 +217,8 @@ export default function ChangePassword() {
                 </Box>
             </Container>
 
-            <ErrorToast childFunc={childFuncError} message={error}/>
-            <SuccessToast childFunc={childFuncSuccess} message={success}/>
+            <ErrorToast childFuncError={childFuncError} message={error}/>
+            <SuccessToast childFuncSuccess={childFuncSuccess} message={success}/>
 
 
         </ThemeProvider>

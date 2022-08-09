@@ -14,7 +14,10 @@ import {useFormik} from "formik";
 import {CreateNote} from "../../../validations/student_forms";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import studentAPI from '../../../apis/modules/student_apis'
+import SuccessToast from '../../../toasts/success'
+import ErrorToast from '../../../toasts/error'
+import {useState} from "@types/react";
 
 
 
@@ -58,6 +61,8 @@ BootstrapDialogTitle.propTypes = {
 
 export default function UpdateNote(props) {
     const [open, setOpen] = React.useState(false);
+    const [success, setSuccess] = useState(undefined);
+    const [error, setError] = useState(undefined);
 
     const [is_update, setIsUpdate] = React.useState(false);
 
@@ -69,6 +74,7 @@ export default function UpdateNote(props) {
         setOpen(true);
     };
     const handleClose = () => {
+        props.getNotices()
         setOpen(false);
     };
 
@@ -76,10 +82,13 @@ export default function UpdateNote(props) {
         try{
             let payload = {
                 title : data.title,
-                description : data.default
+                description : data.description
             }
+            await studentAPI.updateNotice(payload);
+            setSuccess('Notice update successfully')
+            handleClose()
         }catch (e){
-
+            setError(e.message)
         }
     }
 
@@ -156,6 +165,13 @@ export default function UpdateNote(props) {
                     </Button>
                 </DialogActions>
             </BootstrapDialog>
+
+            {
+                error ? <ErrorToast message={error}/> : ''
+            }
+            {
+                success ? <SuccessToast message={success}/> : ''
+            }
         </div>
     );
 }

@@ -105,14 +105,14 @@ export default function CreateNewStudent() {
     return (
         <div>
             <Button sx={{
-                float: "right",
+              float:'center'
             }} variant="contained" startIcon={<AddIcon/>} onClick={handleClickOpen}>Create Student</Button>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
-                <BootstrapDialogTitle id="customized-dialog-title">
+                <BootstrapDialogTitle id="customized-dialog-title" >
                     CREATE NEW STUDENT
                 </BootstrapDialogTitle>
                 <DialogContent dividers sx={{width:'100%'}}>

@@ -28,8 +28,13 @@ const Home = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                <CreateStudent/>
-                <AllStudents/>
+                <div>
+                    <CreateStudent/>
+                </div>
+                <div>
+                    <AllStudents/>
+                </div>
+
 
 
             </Box>

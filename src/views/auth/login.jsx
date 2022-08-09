@@ -48,7 +48,8 @@ export default function SignIn() {
             };
             let respond = (await auth.login(payload)).data;
             localStorage.setItem("JWT", respond.token);
-            if(respond.data.user.role === 'admin'){
+            console.log(respond)
+            if(respond.data.user.account_type === 'admin'){
                 window.location = '/admin-home'
             }else if(respond.data.user.status === false){
                 window.location = '/update-account'

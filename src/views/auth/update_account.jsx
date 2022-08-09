@@ -36,11 +36,12 @@ export default function ChangePassword() {
                 last_name:data.last_name,
                 DOB:data.DOB,
                 mobile:data.mobile,
+                status : true,
                 current_password: data.current_password,
                 password: data.password,
                 confirm_password: data.confirm_password
             };
-            (await auth.updateMyAccount(payload)).data;
+            (await auth.updateMyAccount(payload));
             setSuccess('Your account is update successfully')
             (await auth.logout())
             localStorage.clear();
@@ -80,7 +81,8 @@ export default function ChangePassword() {
                     }}
                 >
                     <Info
-                        message='You can manage you profile using this form'/>
+                        message='You can manage you profile using this form. If you successfully update your details you again
+                        re direct to login page. Then you will be able to login to system with your own password'/>
                     <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                         <LockOutlinedIcon/>
                     </Avatar>

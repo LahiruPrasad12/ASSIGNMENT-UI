@@ -156,13 +156,12 @@ const AdminNavBar = () => {
                             </Button>
                         ))}
                     </Box>
-                    {currentUser}
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Logout">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
 
-                                    {currentUser.first_name ? currentUser.first_name.split('')[0] + currentUser.first_name.split('')[1]:''}
+                                   L
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

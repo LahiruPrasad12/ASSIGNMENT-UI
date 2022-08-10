@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import auth from "../apis/modules/auth";
+import {useEffect} from "@types/react";
 
 const pages = ['My Notes', 'About Us', 'Contact Us'];
 const settings = ['Logout'];
@@ -20,6 +21,16 @@ const settings = ['Logout'];
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const [currentUser, setCurrentUser] = React.useState({});
+
+    useEffect(()=>{
+        const getCurrentUser=async()=>{
+            const respond = (await auth.currentUser()).data.data
+            setCurrentUser(respond)
+        }
+        getCurrentUser()
+    },[])
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -145,10 +156,11 @@ const ResponsiveAppBar = () => {
                     </Box>
 
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Logout">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
-                                    L
+                                    {currentUser.first_name?currentUser.first_name.split('')[0].toUpperCase()+
+                                        ''+currentUser.last_name.split('')[0].toUpperCase():'L'}
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

@@ -28,7 +28,6 @@ const AdminNavBar = () => {
     useEffect(()=>{
         const getCurrentUser=async()=>{
             const respond = (await auth.currentUser()).data.data
-            console.log(respond)
             setCurrentUser(respond)
         }
         getCurrentUser()
@@ -160,7 +159,6 @@ const AdminNavBar = () => {
                         <Tooltip title="Logout">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
-
                                     {currentUser.first_name?currentUser.first_name.split('')[0].toUpperCase()+
                                         ''+currentUser.last_name.split('')[0].toUpperCase():'L'}
                                 </Avatar>

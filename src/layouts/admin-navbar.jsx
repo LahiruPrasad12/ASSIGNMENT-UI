@@ -161,7 +161,7 @@ const AdminNavBar = () => {
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
 
-                                   L
+                                    {currentUser.first_name?currentUser.first_name:'L'}
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

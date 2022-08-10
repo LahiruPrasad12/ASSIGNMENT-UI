@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import auth from "../apis/modules/auth";
+import {useEffect} from "react";
 
 
 const pages = ['Students', 'About Us', 'Contact Us'];
@@ -21,6 +22,16 @@ const settings = ['Logout'];
 const AdminNavBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const [currentUser, setCurrentUser] = React.useState([]);
+
+    useEffect(()=>{
+        const getCurrentUser=async()=>{
+            const respond = (await auth.currentUser()).data.data
+            setCurrentUser(respond)
+        }
+        getCurrentUser()
+    },[])
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -149,7 +160,7 @@ const AdminNavBar = () => {
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
-                                    L
+                                    {currentUser ? currentUser.first_name.toUpperCase().split('')[0] + currentUser.first_name.toUpperCase().split('')[1]:''}
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

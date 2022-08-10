@@ -161,7 +161,8 @@ const AdminNavBar = () => {
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
 
-                                    {currentUser.first_name?currentUser.first_name.split('')[0]:'L'}
+                                    {currentUser.first_name?currentUser.first_name.split('')[0].toUpperCase()+
+                                        ''+currentUser.last_name.split('')[0].toUpperCase():'L'}
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

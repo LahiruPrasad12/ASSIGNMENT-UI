@@ -156,12 +156,13 @@ const AdminNavBar = () => {
                             </Button>
                         ))}
                     </Box>
-
+                    {currentUser}
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Logout">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp">
-                                    {currentUser ? currentUser.first_name.toUpperCase().split('')[0] + currentUser.first_name.toUpperCase().split('')[1]:''}
+
+                                    {currentUser.first_name ? currentUser.first_name.split('')[0] + currentUser.first_name.split('')[1]:''}
                                 </Avatar>
                             </IconButton>
                         </Tooltip>

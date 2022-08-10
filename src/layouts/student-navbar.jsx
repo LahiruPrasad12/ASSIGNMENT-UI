@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import auth from "../apis/modules/auth";
-import {useEffect} from "@types/react";
+import {useEffect} from "react";
 
 const pages = ['My Notes', 'About Us', 'Contact Us'];
 const settings = ['Logout'];

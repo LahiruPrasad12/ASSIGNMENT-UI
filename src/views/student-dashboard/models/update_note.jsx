@@ -100,8 +100,8 @@ export default function UpdateNote(props) {
     const deleteNotice = async()=>{
         try{
             SoloAlert.confirm({
-                title:"Title Here",
-                body:"Are you a Cat ?"
+                title:"Warning !!",
+                body:"Are you sure you want to delete this note ?"
             }).then(async value => {
                 if(value){
                     (await studentAPI.deleteNotice(props.id));

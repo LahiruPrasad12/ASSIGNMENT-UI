@@ -23,11 +23,12 @@ const AdminNavBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const [currentUser, setCurrentUser] = React.useState([]);
+    const [currentUser, setCurrentUser] = React.useState({});
 
     useEffect(()=>{
         const getCurrentUser=async()=>{
             const respond = (await auth.currentUser()).data.data
+            console.log(respond)
             setCurrentUser(respond)
         }
         getCurrentUser()

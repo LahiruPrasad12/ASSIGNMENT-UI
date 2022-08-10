@@ -12,9 +12,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Deployed Link
     https://assignment-ui.vercel.app/
 
-## Dummy Credentials
+## Admin Credentials
     Admin : admin@gmail.com
             admin123
-
-    Student : sihinaoshada380@gmail.com
-              90c45947
